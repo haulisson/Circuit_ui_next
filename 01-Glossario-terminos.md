@@ -1,11 +1,25 @@
 
-00-README-brief.md           ← o “contrato” do projeto (objetivos, escopo, estilo)
-01-Glossario-terminos.md     ← termos e nomes de entidades
-  02-ADRs/                   ← Architecture Decision Records curtos (1 decisão/arquivo)
-  03-Especificacoes/         ← PRD, casos de uso, APIs
-  04-Codigo/                 ← fontes (subpastas por módulo)
-  05-Notas/                  ← anotações, atas, links
-  06-Resumos/                ← sumários gerados 
+- `00-README-brief.md`  
+  ← **“contrato” do projeto** (objetivos, escopo, estilo)
+
+- `01-Glossario-terminos.md`  
+  ← termos e nomes de entidades
+
+- `02-ADRs/`  
+  ← *Architecture Decision Records* curtos (1 decisão/arquivo)
+
+- `03-Especificacoes/`  
+  ← PRD, casos de uso, APIs
+
+- `04-Codigo/`  
+  ← fontes (subpastas por módulo)
+
+- `05-Notas/`  
+  ← anotações, atas, links
+
+- `06-Resumos/`  
+  ← sumários gerados
+
 
 
 ## Glossário:
