@@ -1,6 +1,6 @@
 {
   "compilerOptions": {
-    "target": "ES2017",
+    "target": "ES2022",
     "lib": ["dom", "dom.iterable", "esnext"],
     "allowJs": true,
     "skipLibCheck": true,
@@ -19,11 +19,16 @@
       }
     ],
     "paths": {
-      "@/*": ["./src/*"]
+      "@domain/*": ["src/domain/*"],
+      "@application/*": ["src/application/*"],
+      "@ports/*": ["src/ports/*"],
+      "@adapters/*": ["src/adapters/*"]
     },
     "baseUrl": ".",
     // "types": ["vitest/globals", "@testing-library/jest-dom"]
-    "types": ["jest", "@testing-library/jest-dom"]
+    // "types": ["jest", "@testing-library/jest-dom"]
+    "types": ["vitest/globals"]
+
   },
   "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts"],
   "exclude": ["tests/e2e/**/.*/", "node_modules"]

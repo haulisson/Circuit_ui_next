@@ -1,0 +1,76 @@
+@startuml
+title Arquitetura Hexagonal — Next+TS (Circuit UI) [v2]
+
+skinparam ArrowColor #555
+skinparam PackageStyle Rectangle
+skinparam ComponentStyle rectangle
+
+package "Web (Next.js App)" {
+  [Next App Router] as AppRouter
+  [Canvas Client Page] as CanvasUI
+  [API Routes (/api/*)] as ApiRoutes
+}
+
+package "Application (Use Cases)" {
+  [PlaceComponent]
+  [DrawWire]
+  [SelectEntities]
+  [ExportJSON]
+  [ImportJSON]
+}
+
+package "Domain" {
+  [Schematic]
+  [Component (abstract)]
+  [Resistor]
+  [Wire]
+  [Port/ConnectionPoint]
+  Component <|-- Resistor
+}
+
+package "Ports (Interfaces)" {
+  interface IRenderer
+  interface ISchematicStore
+  interface ISimRunner
+  interface IUndoRedo
+}
+
+package "Adapters" {
+  [Canvas2DRenderer] -up-|> IRenderer
+  [LocalStorageStore] -up-|> ISchematicStore
+  [NgSpiceSimAdapter] -up-|> ISimRunner
+  [MemoryUndoRedo] -up-|> IUndoRedo
+}
+
+/' Fluxo UI -> Application (driver) '/
+AppRouter --> CanvasUI : navega/serve
+CanvasUI --> PlaceComponent
+CanvasUI --> DrawWire
+CanvasUI --> SelectEntities
+CanvasUI --> ExportJSON
+CanvasUI --> ImportJSON
+
+/' Application -> Domain '/
+PlaceComponent --> Schematic
+DrawWire --> Schematic
+SelectEntities --> Schematic
+ExportJSON --> Schematic
+ImportJSON --> Schematic
+
+/' Application -> Ports (driven) '/
+PlaceComponent --> IRenderer : drawComponent(...)
+DrawWire --> IRenderer : drawWire(...), highlight(...)
+SelectEntities --> IRenderer : redraw(selection)
+ExportJSON --> ISchematicStore : save(json)
+ImportJSON --> ISchematicStore : load()
+
+/' Realizações '/
+Canvas2DRenderer ..> CanvasUI : usa <canvas>
+LocalStorageStore ..> CanvasUI : Web Storage
+MemoryUndoRedo ..> CanvasUI
+
+/' Integrações opcionais (pontilhado) '/
+ApiRoutes ..> ISchematicStore : ..persistência remota..
+NgSpiceSimAdapter ..> ISimRunner : ..simulação..
+
+@enduml

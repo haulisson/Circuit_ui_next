@@ -1,0 +1,74 @@
+@startuml
+title Modelo de Domínio (Schematic, Component, Wire, Port)
+
+class Schematic {
+  - components : Component[*]
+  - connectionIndex : Map<string, Port[*]>
+  + addComponent(c: Component)
+  + removeComponent(c: Component)
+  + checkWires(c: Component)
+  + addWire(a: Port, b: Port) : Wire
+  + toJSON() : SchematicJSON
+}
+
+abstract class Component {
+  + id: string
+  + type: string
+  + x: number
+  + y: number
+  + selected: boolean
+  - ports: Port[*]
+  + getPorts(): Port[*]
+  + select(): void
+  + deselect(): void
+  + toJSON(): ComponentJSON
+}
+
+class Resistor extends Component {
+  + r: string
+  + name: string
+}
+
+class Wire {
+  + id: string
+  + a: PortRef
+  + b: PortRef
+  + orthogonal: boolean
+  + connect(a: Port, b: Port): void
+  + toJSON(): WireJSON
+}
+
+class Port {
+  + id: string   // p0, p1...
+  + kind: PortKind  // in|out|bidir
+  + x: number
+  + y: number
+  + ownerId: string
+}
+
+enum PortKind {
+  in
+  out
+  bidir
+}
+
+class PortRef <<ValueObject>> {
+  + componentId: string
+  + portId: string
+}
+
+class ComponentJSON <<DTO>> {
+}
+class WireJSON <<DTO>> {
+}
+class SchematicJSON <<DTO>> {
+}
+
+Schematic "1" o-- "*" Component
+Component "1" o-- "*" Port
+Wire "1" -- "1" PortRef : a
+Wire "1" -- "1" PortRef : b
+PortRef ..> Port : referencia (componentId+portId)
+Component <|-- Resistor
+
+@enduml

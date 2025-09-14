@@ -1,0 +1,19 @@
+@startuml
+title Sequência: PlaceComponent (Resistor) e Seleção
+
+actor User
+participant CanvasUI as UI
+participant PlaceComponent as UseCase
+participant Schematic as Dom
+participant IRenderer as Rend
+
+User -> UI : click PartsBin(Resistor)
+UI -> UseCase : placeResistor(x,y)
+UseCase -> Dom : addComponent(Resistor)
+UseCase -> Rend : drawComponent(Resistor)
+
+User -> UI : click no resistor
+UI -> UseCase : select(entityId, shift=false)
+UseCase -> Dom : component.select()
+UseCase -> Rend : redraw(selection=true)
+@enduml

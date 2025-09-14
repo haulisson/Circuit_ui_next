@@ -1,0 +1,65 @@
+@startuml Arquitetura
+title Arquitetura Hexagonal — Next+TS (Circuit UI)
+
+package "Web (Next.js App)" {
+  [Next App Router] as AppRouter
+  [Canvas Page/Client] as CanvasUI
+  [API Routes] as ApiRoutes
+}
+
+package "Application (Use Cases)" {
+  [PlaceComponent]
+  [DrawWire]
+  [SelectEntities]
+  [ExportJSON]
+  [ImportJSON]
+}
+
+package "Domain" {
+  [Schematic]
+  [Component (abstract)]
+  [Resistor]
+  [Wire]
+  [Port/ConnectionPoint]
+}
+
+package "Ports (Interfaces)" {
+  interface IRenderer
+  interface ISchematicStore
+  interface ISimRunner
+  interface IUndoRedo
+}
+
+package "Adapters" {
+  [Canvas2DRenderer] -up-|> IRenderer
+  [LocalStorageStore] -up-|> ISchematicStore
+  [NgSpiceSimAdapter] -up-|> ISimRunner
+  [MemoryUndoRedo] -up-|> IUndoRedo
+}
+
+AppRouter --> CanvasUI : navega/serve
+CanvasUI --> PlaceComponent
+CanvasUI --> DrawWire
+CanvasUI --> SelectEntities
+CanvasUI --> ExportJSON
+CanvasUI --> ImportJSON
+
+PlaceComponent --> Schematic
+DrawWire --> Schematic
+SelectEntities --> Schematic
+ExportJSON --> Schematic
+ImportJSON --> Schematic
+
+PlaceComponent --> IRenderer
+DrawWire --> IRenderer
+SelectEntities --> IRenderer
+ExportJSON --> ISchematicStore
+ImportJSON --> ISchematicStore
+
+ApiRoutes ..> ISchematicStore : server-side (opcional)
+NgSpiceSimAdapter ..> ISimRunner : simulação (futuro)
+
+Canvas2DRenderer ..> CanvasUI : usa <canvas>
+LocalStorageStore ..> CanvasUI : usa Web Storage
+
+@enduml

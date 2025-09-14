@@ -1,0 +1,44 @@
+@startuml
+title Pacotes / Pastas (proposta mínima)
+
+package "src/domain/schematic" {
+  class component.ts
+  class wire.ts
+  class resistor.ts
+  class types.ts
+}
+
+package "src/app/usecases" {
+  class placeComponent.ts
+  class drawWire.ts
+  class selectEntities.ts
+  class exportJSON.ts
+  class importJSON.ts
+}
+
+package "src/ports" {
+  interface IRenderer
+  interface ISchematicStore
+  interface ISimRunner
+  interface IUndoRedo
+}
+
+package "src/adapters" {
+  package "renderer/canvas2d" {
+    class Canvas2DRenderer.ts
+  }
+  package "store/localstorage" {
+    class LocalStorageStore.ts
+  }
+  package "sim/ngspice" {
+    class NgSpiceSimAdapter.ts
+  }
+}
+
+package "app (Next.js)" {
+  class page.tsx
+  class canvas-client.tsx
+  class api/export/route.ts
+  class api/import/route.ts
+}
+@enduml

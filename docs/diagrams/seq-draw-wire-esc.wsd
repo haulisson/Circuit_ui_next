@@ -1,0 +1,35 @@
+@startuml
+title Sequência: DrawWire (snap, highlight, ESC para cancelar)
+
+actor User
+participant CanvasUI as UI
+participant DrawWire as UseCase
+participant Schematic as Dom
+participant IRenderer as Rend
+
+User -> UI : mousedown sobre Port (p0)
+UI -> UseCase : startWire(p0)
+UseCase -> Rend : highlight(p0)
+loop mousemove
+  UI -> UseCase : updateCursor(pos)
+  UseCase -> Rend : previewWire(p0,pos)
+end
+
+alt encaixe em Port (pX)
+  UseCase -> Rend : highlight(pX)
+else livre
+  UseCase -> Rend : clearHighlight()
+end
+
+opt [ESC pressionado]
+  User -> UI : keydown(ESC)
+  UI -> UseCase : cancel()
+  UseCase -> Rend : clearPreview()
+  return
+end
+
+User -> UI : mouseup sobre Port (p1)
+UI -> UseCase : commitWire(p1)
+UseCase -> Dom : addWire(p0,p1) -> Wire
+UseCase -> Rend : drawWire(Wire)
+@enduml

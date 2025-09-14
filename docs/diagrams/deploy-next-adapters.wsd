@@ -1,0 +1,24 @@
+@startuml
+title Deployment — Next.js (App Router) + Adapters
+
+node "Browser" {
+  component "Next.js Client" as Client
+  component "Canvas2DRenderer" as C2D
+  component "LocalStorageStore" as LStore
+  database "IndexedDB (opcional)" as IDB
+  artifact "WASM (ngspice, futuro)" as WASM
+}
+
+node "Server (Node/Edge)" {
+  component "Next.js Server/SSR" as SSR
+  component "API Routes (/api/*)" as API
+}
+
+Client -- SSR : hydration/SSR
+Client ..> C2D : desenha <canvas>
+Client ..> LStore : save/load JSON
+LStore ..> IDB : persist (opcional)
+Client ..> WASM : simulação (opcional)
+Client ..> API : export/import remoto (opcional)
+
+@enduml

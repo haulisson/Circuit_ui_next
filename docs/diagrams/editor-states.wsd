@@ -1,0 +1,36 @@
+@startuml
+title Máquina de Estados — Editor (Tool Modes)
+
+[*] --> Idle
+
+state Idle {
+}
+Idle --> PlacingPart : click PartsBin
+Idle --> SelectMode : click canvas
+Idle --> WireDrawing : mousedown em Port
+Idle --> Panning : Alt+Drag ou MiddleMouse
+
+state PlacingPart {
+}
+PlacingPart --> Idle : place \n (mouseup)
+PlacingPart --> Idle : Esc (cancel)
+
+state SelectMode {
+}
+SelectMode --> Dragging : mousedown em entidade selecionada
+SelectMode --> BoxSelect : mousedown em vazio
+Dragging --> SelectMode : mouseup
+BoxSelect --> SelectMode : mouseup
+SelectMode --> Idle : Esc (clear selection)
+
+state WireDrawing {
+}
+WireDrawing --> WireDrawing : mousemove (preview)
+WireDrawing --> Idle : Esc (cancel)
+WireDrawing --> Idle : mouseup em Port destino (commit)
+
+state Panning {
+}
+Panning --> Idle : mouseup
+
+@enduml
