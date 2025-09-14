@@ -2,9 +2,10 @@ import { describe, it, expect } from "vitest";
 import { SnapService } from "@/application/services/SnapService";
 // import { SnapService } from "../../src/application/services/SnapService";
 
-describe("SnapService", () => {
-  it("arredonda ponto para a grade", () => {
+describe("wire/snap sanity", () => {
+  it("snap mantém ortogonalidade na grade 10", () => {
     const snap = new SnapService(10);
-    expect(snap.snap({ x: 14, y: 26 })).toEqual({ x: 10, y: 30 });
+    const p = snap.snap({ x: 23, y: 47 });
+    expect(p).toEqual({ x: 20, y: 50 });
   });
 });
