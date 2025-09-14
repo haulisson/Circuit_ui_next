@@ -1,4 +1,5 @@
 
+  
 - `00-README-brief.md`  ← **“contrato” do projeto** (objetivos, escopo, estilo)
 
 - `01-Glossario-terminos.md`  ← termos e nomes de entidades
@@ -73,6 +74,7 @@ IndexedDB (local autosave/versioning) + persistência em JSON
 Vitest/Jest + Playwright (testes unitários/E2E)
 
 ## Estrutura mínima de pastas
+
 /src
   /domain
     schematic/
@@ -136,3 +138,40 @@ Vitest/Jest + Playwright (testes unitários/E2E)
   ADR-001.md
   glossary.md
   brief.md
+/tests
+
+```bash
+circuit-sandbox-remake/
+│── src/                   # Código-fonte (arquivos JS que você enviou)
+│   ├── core/              # Núcleo da simulação
+│   │   ├── Component.js
+│   │   ├── Wire.js
+│   │   ├── ConnectionPoint.js
+│   │   ├── Netlist.js
+│   │   └── ...
+│   ├── ui/                # Interface e interação
+│   │   ├── Schematic.js
+│   │   ├── ToolBar.js
+│   │   ├── PartsBin.js
+│   │   ├── Drawing.js
+│   │   ├── Event.js
+│   │   └── ...
+│   ├── analysis/          # Simulação elétrica
+│   │   ├── Simulation.js
+│   │   ├── Graphing.js
+│   │   └── ...
+│   ├── components/        # Componentes discretos
+│   │   ├── Component.Resistor.js
+│   │   ├── Component.Capacitor.js
+│   │   ├── Component.Source.js
+│   │   ├── Component.Probe.js
+│   │   └── ...
+│── docs/                  # Documentação
+│   ├── ADRs/              # Architecture Decision Records
+│   └── diagrams/          # PlantUML / UML
+│── tests/                 # Testes unitários
+│── package.json           # Configuração NPM
+│── .gitignore
+│── README.md
+
+```
