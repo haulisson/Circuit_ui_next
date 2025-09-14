@@ -75,103 +75,78 @@ Vitest/Jest + Playwright (testes unitários/E2E)
 
 ## Estrutura mínima de pastas
 
-/src
-  /domain
-    schematic/
-      Schematic.ts
-      Component.ts
-      Port.ts
-      Net.ts
-      Wire.ts
-      types.ts
-    rules/
-      SnapStrategy.ts
-      RouteStrategy.ts
-    services/
-      ValidationService.ts
-  /app (Next.js)
-    /editor
-      page.tsx
-      Toolbar.tsx
-      Sidebar.tsx
-      CanvasHost.tsx
-  /application
-    commands/
-      ICommand.ts
-      CommandBus.ts
-      AddWire.ts
-      MoveComponent.ts
-      DeleteSelection.ts
-    services/
-      SelectionService.ts
-      UndoRedoService.ts
-      ExporterService.ts
-      ImporterService.ts
-  /adapters
-    render/
-      IRenderer.ts
-      Canvas2DRenderer.ts
-      HitTest.ts
-    persistence/
-      IndexedDBStore.ts
-      FileStore.ts
-    exporters/
-      SvgExporter.ts
-      TikzExporter.ts
-      NetlistExporter.ts
-    simulators/
-      SpiceAdapter.ts
-  /ui
-    state/useEditorStore.ts
-    components/
-      StatusBar.tsx
-      MiniMap.tsx
-      LayerPanel.tsx
-  /catalog
-    registry.ts
-    symbols/
-      resistor.ts
-      capacitor.ts
-      ...
-/docs
-  ADR-000.md
-  ADR-001.md
-  glossary.md
-  brief.md
-/tests
-
 ```bash
 circuit-sandbox-remake/
-│── src/                   # Código-fonte (arquivos JS que você enviou)
-│   ├── core/              # Núcleo da simulação
-│   │   ├── Component.js
-│   │   ├── Wire.js
-│   │   ├── ConnectionPoint.js
-│   │   ├── Netlist.js
-│   │   └── ...
-│   ├── ui/                # Interface e interação
-│   │   ├── Schematic.js
-│   │   ├── ToolBar.js
-│   │   ├── PartsBin.js
-│   │   ├── Drawing.js
-│   │   ├── Event.js
-│   │   └── ...
-│   ├── analysis/          # Simulação elétrica
-│   │   ├── Simulation.js
-│   │   ├── Graphing.js
-│   │   └── ...
-│   ├── components/        # Componentes discretos
-│   │   ├── Component.Resistor.js
-│   │   ├── Component.Capacitor.js
-│   │   ├── Component.Source.js
-│   │   ├── Component.Probe.js
-│   │   └── ...
-│── docs/                  # Documentação
-│   ├── ADRs/              # Architecture Decision Records
-│   └── diagrams/          # PlantUML / UML
-│── tests/                 # Testes unitários
-│── package.json           # Configuração NPM
-│── .gitignore
-│── README.md
-
+│── src/                         # Código-fonte principal
+│   ├── domain/                  # Domínio (modelos centrais)
+│   │   ├── schematic/           # Entidades do esquemático
+│   │   │   ├── Schematic.ts
+│   │   │   ├── Component.ts
+│   │   │   ├── Port.ts
+│   │   │   ├── Net.ts
+│   │   │   ├── Wire.ts
+│   │   │   └── types.ts
+│   │   ├── rules/               # Estratégias e regras
+│   │   │   ├── SnapStrategy.ts
+│   │   │   └── RouteStrategy.ts
+│   │   └── services/            # Serviços de domínio
+│   │       └── ValidationService.ts
+│   │
+│   ├── app/                     # Aplicação (Next.js)
+│   │   └── editor/              # Editor principal
+│   │       ├── page.tsx
+│   │       ├── Toolbar.tsx
+│   │       ├── Sidebar.tsx
+│   │       └── CanvasHost.tsx
+│   │
+│   ├── application/             # Camada de aplicação
+│   │   ├── commands/            # Comandos (CQRS)
+│   │   │   ├── ICommand.ts
+│   │   │   ├── CommandBus.ts
+│   │   │   ├── AddWire.ts
+│   │   │   ├── MoveComponent.ts
+│   │   │   └── DeleteSelection.ts
+│   │   └── services/            # Serviços de aplicação
+│   │       ├── SelectionService.ts
+│   │       ├── UndoRedoService.ts
+│   │       ├── ExporterService.ts
+│   │       └── ImporterService.ts
+│   │
+│   ├── adapters/                # Adapters (integrações externas)
+│   │   ├── render/              # Renderização
+│   │   │   ├── IRenderer.ts
+│   │   │   ├── Canvas2DRenderer.ts
+│   │   │   └── HitTest.ts
+│   │   ├── persistence/         # Persistência
+│   │   │   ├── IndexedDBStore.ts
+│   │   │   └── FileStore.ts
+│   │   ├── exporters/           # Exportadores
+│   │   │   ├── SvgExporter.ts
+│   │   │   ├── TikzExporter.ts
+│   │   │   └── NetlistExporter.ts
+│   │   └── simulators/          # Simuladores
+│   │       └── SpiceAdapter.ts
+│   │
+│   ├── ui/                      # Interface do usuário
+│   │   ├── state/               # Estado (Zustand/Store)
+│   │   │   └── useEditorStore.ts
+│   │   └── components/          # Componentes visuais
+│   │       ├── StatusBar.tsx
+│   │       ├── MiniMap.tsx
+│   │       └── LayerPanel.tsx
+│   │
+│   └── catalog/                 # Catálogo de símbolos
+│       ├── registry.ts
+│       └── symbols/
+│           ├── resistor.ts
+│           ├── capacitor.ts
+│           └── ...
+│
+│── docs/                        # Documentação
+│   ├── ADR-000.md
+│   ├── ADR-001.md
+│   ├── glossary.md
+│   └── brief.md
+│
+│── tests/                       # Testes automatizados
 ```
