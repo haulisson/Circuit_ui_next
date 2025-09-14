@@ -3,7 +3,7 @@ import { Wire } from "@domain/schematic/Wire";
 import { createResistor } from "@domain/schematic/resistor";
 import { PlaceComponent } from "@application/usecases/PlaceComponent";
 import { DrawWire } from "@application/usecases/DrawWire";
-import { makeRendererMock } from "./helpers/mocks";
+import { makeRendererMock } from "../helpers/mocks";
 
 describe("Wire + Usecases", () => {
   it("desenha dois componentes e um wire (por segmentos) via casos de uso", () => {

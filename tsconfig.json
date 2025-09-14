@@ -19,10 +19,10 @@
       }
     ],
     "paths": {
-      "@domain/*": ["src/domain/*"],
       "@application/*": ["src/application/*"],
-      "@ports/*": ["src/ports/*"],
-      "@adapters/*": ["src/adapters/*"]
+      "@adapters/*": ["src/adapters/*"],
+      "@domain/*": ["src/domain/*"],
+      "@ports/*": ["src/ports/*"]
     },
     "baseUrl": ".",
     // "types": ["vitest/globals", "@testing-library/jest-dom"]
